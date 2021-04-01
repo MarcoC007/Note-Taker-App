@@ -1,0 +1,26 @@
+{
+  "name": "note-taker-app",
+  "version": "1.0.0",
+  "description": "unit 11 assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcoC007/Note-Taker-App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcoC007/Note-Taker-App/issues"
+  },
+  "homepage": "https://github.com/MarcoC007/Note-Taker-App#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
