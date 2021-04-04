@@ -10,7 +10,7 @@ In this app the user will create, update and delete a note file. The
 * HTML
 
 ## Link 
-![note-app](https://note2000-app.herokuapp.com/notes)
+[note-app](https://note2000-app.herokuapp.com/notes)
 
 ## License
 Mozilla Public License Version 2.0
