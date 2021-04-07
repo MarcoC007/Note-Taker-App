@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const util = require('util');
 const fs = require('fs');
+const db = 'db/db.json';
 const {v1: uuidv1 } = require('uuid');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 
 // reading and writing app
 const readFile = util.promisify(fs.readFile);
@@ -16,8 +17,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname + '/public')));
+// app.use(morgan('dev'));
+app.use(express.static('public'));
 
 
  //This function read the notes from
@@ -58,12 +59,14 @@ app.get('/notes', (req, res) => {
 
 //Api get routes
 app.get('/api/notes', async function(req, res) {
+    
     const data = await getData();
     res.status(200).json(data);
 })
 
 //Api post 
 app.post('/api/notes', async function(req, res) {
+    console.log('saving')
     let note = req.body;
     req.body.id = uuidv1();
     const newData = await getData();
@@ -75,7 +78,7 @@ app.post('/api/notes', async function(req, res) {
     return res.status(201);
  });
 
- app.delete('/api/notes:id', function(req, res) {
+ app.delete('/api/notes/:id', function(req, res) {
     // removeNote = () => {
     // let noteId = req.body.id;
     // return getData()
@@ -85,7 +88,8 @@ app.post('/api/notes', async function(req, res) {
     // removeNote(req.params.id)
     // .then(() => res.json({ ok: true}))
     // .catch((err) => res.sendStatus(200).json(err));
-    let Note = JSON.parse(fs.readFileSync(db, "utf8"));
+    let Note = JSON.parse(fs.readFileSync("db/db.json", "utf8"));
+ 
 
     let idDel = req.params.id;
     
@@ -96,7 +100,8 @@ app.post('/api/notes', async function(req, res) {
     writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(Note), (err) => {
         if (err) throw err;
         res.json(Note);
-    })
+    }).then(() => res.json({ ok: true}))
+    .catch((err) => res.sendStatus(200).json(err));
  });
 
 
